@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tk.gbl.mapper.UnitMapper">
+    <resultMap type="Unit" id="unit">
+        <id property="unit_id" column="unit_id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <select id="get" parameterType="int" resultType="Unit">
+		select * from unit where unit_id = #{id}
+	</select>
+    <select id="getAll" parameterType="int" resultType="Unit">
+        select * from unit
+    </select>
+
+
+    <insert id="save" parameterType="Unit">  
+        insert into unit(name) 
+         values(#{name})
+  </insert>
+
+    <update id="update" parameterType="Unit">
+		update unit set name=#{name}
+		 where unit_id=#{unit_id}
+	</update>
+
+    <update id="delete" parameterType="int">
+        delete from unit where unit_id=#{id}
+    </update>
+
+
+</mapper> 

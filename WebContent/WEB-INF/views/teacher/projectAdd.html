@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>教师首页</title>
+
+    <link rel="stylesheet" href="/static/css/base.css" type="text/css"/>
+
+</head>
+
+<body bgcolor="#32435d">
+<div id="content">
+
+    <#include "/teacher/left.html" />
+
+    <div class="c-c">
+        <form action="addProject" method="post" >
+            <input type="text" name="type" value=""/>
+            <input type="text" name="name" value=""/>
+            <input type="text" name="unit" value=""/>
+            <input type="text" name="teacher" value=""/>
+            <input type="text" name="phone" value=""/>
+            <input type="text" name="apply_date" value=""/>
+            <input type="text" name="apply_money" value=""/>
+            <input type="text" name="start_date" value=""/>
+            <input type="text" name="end_date" value=""/>
+            <input type="hidden" name="college_check_state" value="0"/>
+            <input type="hidden" name="school_check_state" value="0"/>
+            <input type="hidden" name="state" value="0"/>
+            <input type="submit"/>
+        </form>
+
+    </div>
+    <div class="c-r"></div>
+</div>
+<div style="clear: both;"></div>
+<div id="footer"></div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>SA首页</title>
+
+    <link rel="stylesheet" href="/static/css/base.css" type="text/css"/>
+
+</head>
+
+<body bgcolor="#32435d">
+<div id="content">
+    <#include "/sa/left.html" />
+    <div class="c-c">
+        <table class="table table-bordered table-hover table-condensed table-striped">
+            <tr>
+                <th>username</th>
+                <th>password</th>
+                <th>status</th>
+                <th>操作</th>
+            </tr>
+            <#list teachers as teacher>
+                <tr>
+                    <td>${teacher.username}</td>
+                    <td>${teacher.password}</td>
+                    <td>${teacher.status}</td>
+                    <td><a href="updateTeacher?id=${teacher.teacher_id}">修改</a><a href="">删除</a></td>
+                </tr>
+            </#list>
+        </table>
+    </div>
+
+    <div class="c-r"></div>
+</div>
+<div style="clear: both;"></div>
+<div id="footer"></div>
+</body>
+</html>
+
+

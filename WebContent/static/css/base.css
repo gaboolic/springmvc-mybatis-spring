@@ -1,0 +1,95 @@
+
+* {
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+ul li {
+    list-style: none;
+    margin-left: 10px;
+    display: inline;
+    color: #000;
+    font-weight: bold;
+}
+
+a {
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+
+a:hover {
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: underline;
+}
+
+#header {
+    width: 1000px;
+    margin: 0 auto;
+    height: 62px;
+    background: url(../images/uimain3_01.jpg) no-repeat;
+}
+
+#header span {
+    float: right;
+    margin: 30px 40px 0 0;
+}
+
+#content {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+#content .c-l {
+    width: 208px;
+    float: left;
+    height: 500px;
+    background: url(../images/uimain3_02.jpg) no-repeat;
+}
+
+#content .c-c {
+    width: 752px;
+    float: left;
+    height: auto;
+    background: #FFF;
+    height: 500px;
+}
+
+#content .c-r {
+    width: 40px;
+    float: left;
+    height: 500px;
+    background: url(../images/uimain3_04.jpg);
+}
+
+.c-l-b1 {
+    width: 200px;
+    margin: 0 auto;
+    height: 75px;
+}
+
+.c-l-b1 ul li {
+    width: 200px;
+    float: left;
+    line-height: 24px;
+}
+
+.c-l-b2 {
+    width: 150px;
+    margin: 0 auto;
+    height: 60px;
+    overflow: hidden;
+    line-height: 24px;
+}
+
+#footer {
+    width: 1000px;
+    margin: 0 auto;
+    height: 40px;
+    background: url(../images/uimain3_05.jpg) #32435d;
+}

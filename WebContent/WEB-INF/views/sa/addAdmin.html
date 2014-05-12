@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>SA首页</title>
+
+    <link rel="stylesheet" href="/static/css/base.css" type="text/css"/>
+
+</head>
+
+<body bgcolor="#32435d">
+<div id="content">
+    <#include "/sa/left.html" />
+    <div class="c-c">
+        <form action="addAdmin" method="post">
+            <label>username</label><input type="text" name="username" />
+            <label>password</label><input type="text" name="password"/>
+            <label>status</label><input type="text" name="status" />
+            <input type="text" name="realname"/>
+            <input type="text" name="unit_id"/>
+            <input type="submit">
+        </form>
+    </div>
+
+    <div class="c-r"></div>
+</div>
+<div style="clear: both;"></div>
+<div id="footer"></div>
+</body>
+</html>
+
+
