@@ -9,9 +9,11 @@ import java.util.Date;
  * name varchar(255) comment '项目名称',
  * unit_id int comment '单位',
  * teacher_id int comment '申报人',
+ * //参加人员
  * phone int comment '申报人手机',
  * apply_date datetime comment '申报日期',
  * apply_money int comment '申请经费',
+ * //经费使用
  * start_date datetime comment '开始日期',
  * end_date datetime comment '结束日期',
  * college_check_state int comment '院系审核状态',
