@@ -51,6 +51,8 @@ public class AdminController {
             projects = projectService.getAllProject();
         } else {
             projects = projectService.getAllProjectOfUnit(admin.getUnit());
+            System.out.println("****");
+            System.out.println(admin.getUnit());
         }
         model.addAttribute("projects",projects);
         System.out.println("project"+projects.size());
@@ -83,4 +85,10 @@ public class AdminController {
         return null;
     }
 
+    @RequestMapping(value="/viewProject")
+    public String viewProject(Model model,int id){
+        Project project = projectService.getProject(id);
+        model.addAttribute("project",project);
+        return "admin/projectDetail";
+    }
 }

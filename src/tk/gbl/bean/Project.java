@@ -1,5 +1,7 @@
 package tk.gbl.bean;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -9,11 +11,11 @@ import java.util.Date;
  * name varchar(255) comment '项目名称',
  * unit_id int comment '单位',
  * teacher_id int comment '申报人',
- * //参加人员
+ * join_people varchar(100) comment '参加人员',
  * phone int comment '申报人手机',
  * apply_date datetime comment '申报日期',
  * apply_money int comment '申请经费',
- * //经费使用
+ * used_money double comment '使用经费',
  * start_date datetime comment '开始日期',
  * end_date datetime comment '结束日期',
  * college_check_state int comment '院系审核状态',
@@ -33,15 +35,19 @@ public class Project {
     private String name;
     private Unit unit;
     private Teacher teacher;
+    private String join_people;
     private int phone;
+
     private Date apply_date;
     private int apply_money;
+    private double used_money;
     private Date start_date;
+
     private Date end_date;
-    private boolean college_check_state;
+    private boolean college_check_state = false;
 
 
-    boolean school_check_state;
+    boolean school_check_state = false;
     int state;
     /**
      * 拒绝原因
@@ -158,5 +164,21 @@ public class Project {
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    public String getJoin_people() {
+        return join_people;
+    }
+
+    public void setJoin_people(String join_people) {
+        this.join_people = join_people;
+    }
+
+    public double getUsed_money() {
+        return used_money;
+    }
+
+    public void setUsed_money(double used_money) {
+        this.used_money = used_money;
     }
 }

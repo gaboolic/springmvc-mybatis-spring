@@ -17,23 +17,23 @@ import tk.gbl.bean.Teacher;
 import tk.gbl.service.ProjectService;
 import tk.gbl.service.UserService;
 
+import java.util.Date;
 import java.util.List;
 
 /**
- * 
- *教师模块 
- *  1、立项提交 本模块的使用人员是教师，系统预设教师编号为登录名（密码也是教师编号），
+ * 教师模块
+ * 1、立项提交 本模块的使用人员是教师，系统预设教师编号为登录名（密码也是教师编号），
  * 每个教师都属于河北科技师范学院的某个院系。教师进行登录实现立项信息添加工作，
  * 需要上传立项申请书，完成立项工作，在此立项人员需要填写关于项目的相关信息如下：
- *  申报项目类别、项目名称、承担单位、主持人、持人手机、申报日期、申请经费、
+ * 申报项目类别、项目名称、承担单位、主持人、持人手机、申报日期、申请经费、
  * 开始日期、结束日期八项，完成提供工作后项目的院系审核状态以及校审核状态均为“未审核”，
  * 项目进度状态为“立项提交”。
- *  2、项目状态更新
+ * 2、项目状态更新
  * 这是指的经过校级管理员审核通过的项目
  * ，立项主持人可以更改项目进展状态，没经过院系管理员以及校管理员通过的项目无法进行更改，
- * 更改的状态有：立项成功、中期审核、结题等。 
- *  3项目维护
-  * 　　　这是教师对自己负责项目的管理，包括修改、删除，但是已经经过院系审核或校级审核的
+ * 更改的状态有：立项成功、中期审核、结题等。
+ * 3项目维护
+ * 　　　这是教师对自己负责项目的管理，包括修改、删除，但是已经经过院系审核或校级审核的
  * 项目不能进行删除。
  */
 
@@ -41,58 +41,80 @@ import java.util.List;
 @RequestMapping(value = "/teacher")
 public class TeacherController {
 
-	@Autowired
-	UserService userService;
-	@Autowired
-	ProjectService projectService;
+    @Autowired
+    UserService userService;
+    @Autowired
+    ProjectService projectService;
 
-	@RequestMapping("/")
-	public String index(){
-		return "teacher/teacher_index";
-	}
+    @RequestMapping("/")
+    public String index() {
+        return "teacher/teacher_index";
+    }
 
     @RequestMapping("/projectManager")
-    public String projectList(Model model,HttpSession session){
+    public String projectList(Model model, HttpSession session) {
         Teacher user = (Teacher) session.getAttribute("user");
         List<Project> projects = projectService.getAllOfTeacher(user);
-        model.addAttribute("projects",projects);
+        model.addAttribute("projects", projects);
         return "teacher/projectManager";
     }
+
     //立项提交
-    @RequestMapping(value="/addProject",method = RequestMethod.GET)
-    public String addProject(){
+    @RequestMapping(value = "/addProject", method = RequestMethod.GET)
+    public String addProject() {
         return "teacher/projectAdd";
     }
-    @RequestMapping(value="/addProject",method = RequestMethod.POST)
-    public String addProject(Project project,HttpSession session){
+
+    @RequestMapping(value = "/addProject", method = RequestMethod.POST)
+    public String addProject(Project project, HttpSession session) {
         Teacher teacher = (Teacher) session.getAttribute("user");
         project.setTeacher(teacher);
+        project.setApply_date(new Date());
+        System.out.println(project.getStart_date());
         projectService.addProject(project);
         return "redirect:/teacher/projectManager";
     }
+
     //修改
-    @RequestMapping(value="/updateProject",method = RequestMethod.GET)
-    public String updateProject(int id,Model model){
+    @RequestMapping(value = "/updateProject", method = RequestMethod.GET)
+    public String updateProject(int id, Model model) {
         Project project = projectService.getProject(id);
-        model.addAttribute("project",project);
+        model.addAttribute("project", project);
         return "teacher/projectUpdate";
     }
-    @RequestMapping(value="/updateProject",method = RequestMethod.POST)
-    public String updateProject(Project project){
+
+    @RequestMapping(value = "/updateProject", method = RequestMethod.POST)
+    public String updateProject(HttpSession session,Project project) {
+        Teacher teacher = (Teacher) session.getAttribute("user");
+        project.setTeacher(teacher);
         return "redirect:/teacher/projectManager";
     }
 
+    @RequestMapping(value="/viewProject")
+    public String viewProject(Model model,int id){
+        Project project = projectService.getProject(id);
+        model.addAttribute("project",project);
+        System.out.println("***project");
+        System.out.println(project.getApply_date());
+        System.out.println(project.getStart_date());
+        System.out.println(project.getEnd_date());
+        System.out.println(project.isCollege_check_state());
+        System.out.println(project.isSchool_check_state());
+        return "teacher/projectDetail";
+    }
 
-	//项目状态更新
-	@RequestMapping("/updateProjectState")
-	public String updateProjectState(Project project){
-		projectService.updateProjectState(project);
+
+    //项目状态更新
+    @RequestMapping("/updateProjectState")
+    public String updateProjectState(Project project) {
+        projectService.updateProjectState(project);
         return "redirect:/teacher/projectManager";
-	}
-	//删除
-	@RequestMapping("/deleteProject")
-	public String deleteProject(int id){
-		projectService.deleteProject(id);
+    }
+
+    //删除
+    @RequestMapping("/deleteProject")
+    public String deleteProject(int id) {
+        projectService.deleteProject(id);
         return "redirect:/teacher/projectManager";
-	}
+    }
 }
