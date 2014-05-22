@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="tk.gbl.mapper.ProjectMapper">  
+    <resultMap type="Project" id="project">
+		<id property="project_id" column="project_id"/>
+	    <result property="type" column="type"/>
+	    <result property="name" column="name"/>
+	    <result property="phone" column="phone"/>
+	    <result property="apply_date" column="apply_date"/>
+	    <result property="apply_money" column="apply_money"/>
+	    <result property="start_date" column="start_date"/>
+	    <result property="end_date" column="end_date"/>
+	    <result property="college_check_state" column="college_check_state"/>
+	    <result property="school_check_state" column="school_check_state"/>
+	    <result property="state" column="state"/>
+	    <association property="unit" column="unit_id"  
+            javaType="Unit" select="selectUnit" />
+        <association property="teacher" column="teacher_id"  
+            javaType="Teacher" select="selectTeacher" />
+	</resultMap> 
+	<resultMap type="Unit" id="unit">
+		<id property="unit_id" column="unit_id" />
+		<result property="name" column="name" />
+	</resultMap>
+	<resultMap type="Teacher" id="teacher">
+		<id property="teacher_id" column="teacher_id" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="realname" column="realname" />
+		<result property="status" column="status" />
+		<association property="unit" column="unit_id" javaType="Unit"
+			select="selectUnit" />
+	</resultMap>
+	
+<select id="selectUnit" parameterType="int" resultMap="unit">
+		select * from unit where unit_id = #{id}
+	</select>
+	<select id="selectTeacher" parameterType="int" resultMap="teacher">
+		select * from teacher where teacher_id = #{id}
+	</select>
+
+	<select id="get" parameterType="int" resultMap="project">
+		select * from project where project_id = #{id}
+	</select>
+    <select id="getAll" parameterType="int" resultMap="project">
+        select * from project
+    </select>
+    <select id="getAllOfUnit" parameterType="int" resultMap="project">
+        select * from project where unit_id = #{unit_id}
+    </select>
+    <select id="getAllOfTeacher" parameterType="int" resultMap="project">
+        select * from project where teacher_id = #{teacher_id}
+    </select>
+
+    <insert id="save" parameterType="Project">  
+        insert into project(type,name,phone,join_people,apply_date,apply_money,used_money,start_date,end_date,college_check_state,school_check_state,state,unit_id,teacher_id)
+         values(#{type},#{name},#{phone},#{join_people},#{apply_date},#{apply_money},#{used_money},
+         #{start_date},#{end_date},#{college_check_state},#{school_check_state},#{state},
+         #{unit.unit_id},#{teacher.teacher_id})
+	</insert>  
+
+	<update id="update" parameterType="Project">
+		update project set type=#{type},name=#{name},phone=#{phone},join_people=#{join_people},
+		apply_date=#{apply_date},apply_money=#{apply_money},used_money=#{used_money},
+         start_date=#{start_date},end_date=#{end_date},college_check_state=#{college_check_state},school_check_state=#{school_check_state},state=#{state},  
+         unit_id=#{unit.unit_id},teacher_id=#{teacher.teacher_id}  
+		  where project_id=#{project_id}
+	</update>
+	
+	<update id="delete" parameterType="int">
+		delete from project where project_id=#{id}
+	</update>
+
+
+    
+  
+
+</mapper> 

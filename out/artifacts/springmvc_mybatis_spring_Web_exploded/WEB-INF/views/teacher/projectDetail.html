@@ -1,0 +1,46 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--<#setting datetime_format="yyyy-MM-dd HH:mm:Ss"/>-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>教师首页</title>
+
+    <link rel="stylesheet" href="/static/css/base.css" type="text/css"/>
+
+</head>
+
+<body bgcolor="#32435d">
+<div id="content">
+
+    <#include "/teacher/left.html" />
+
+    <div class="c-c">
+
+
+        <label>id</label>${project.project_id}<br>
+        <label>项目类型</label>${project.type}<br>
+        <label>项目名称</label>${project.name}<br>
+        <label>单位名称</label>${project.unit.name}<br>
+        <label>教师姓名</label>${project.teacher.realname}<br>
+        <label>申报人电话</label>${project.phone}<br>
+        <label>参加人员</label>${project.join_people}<br>
+        <label>申请时间</label>${project.apply_date?string("yyyy-MM-dd HH:mm:ss")}<br>
+        <label>申请金额</label>${project.apply_money}<br>
+        <label>使用金额</label>${project.used_money}<br>
+        <label>开始时间</label>${project.start_date?string("yyyy-MM-dd HH:mm:ss")}<br>
+        <label>结束时间</label>${project.end_date?string("yyyy-MM-dd HH:mm:ss")}<br>
+        <label>院审核状态</label><#if project.college_check_state>已审核<#else>未审核</#if><br>
+        <label>校审核状态</label><#if project.school_check_state>已审核<#else>未审核</#if><br>
+        <label>项目状态</label>${project.state}<br>
+
+
+    </div>
+    <div class="c-r"></div>
+</div>
+<div style="clear: both;"></div>
+<div id="footer"></div>
+</body>
+</html>
+

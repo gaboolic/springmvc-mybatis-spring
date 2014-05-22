@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>教师首页</title>
+
+    <link rel="stylesheet" href="/static/css/base.css" type="text/css"/>
+
+</head>
+
+<body bgcolor="#32435d">
+<div id="content">
+
+    <#include "/teacher/left.html" />
+
+    <div class="c-c">
+        <form action="updateProject" method="post" >
+            <input type="hidden" name="project_id" value="${project.project_id}"/>
+            <input type="hidden" name="apply_date" value="${project.apply_date}"/>
+            <input type="hidden" name="college_check_state" value="${project.college_check_state?string('true','false')}"/>
+            <input type="hidden" name="school_check_state" value="${project.school_check_state?string('true','false')}"/>
+            <label>类型</label><input type="text" name="type" value="${project.type}"/><br>
+            <label>项目名</label><input type="text" name="name" value="${project.name}"/><br>
+            <label>单位</label><br>
+            <select name="unit.unit_id">
+                <#list units as unit>
+                    <option value ="${unit.unit_id}">${unit.name}</option>
+                </#list>
+            </select>
+            <label>手机号</label><input type="text" name="phone" value="${project.phone}"/><br>
+            <label>参加人员</label><input type="text" name="join_people" value="${project.join_people}"/><br>
+            <label>申报金额</label><input type="text" name="apply_money" value="${project.apply_money}"/><br>
+            <label>使用金额</label><input type="text" name="used_money" value="${project.used_money}"/><br>
+
+            <label>开始时间</label><input type="text" name="start_date" value="${project.start_date?string("yyyy-MM-dd HH:mm:ss")}"/><br>
+            <label>结束时间</label><input type="text" name="end_date" value="${project.end_date?string("yyyy-MM-dd HH:mm:ss")}"/><br>
+
+            <input type="hidden" name="state" value="${project.state}"/><br>
+            <input type="submit"/>
+        </form>
+
+    </div>
+    <div class="c-r"></div>
+</div>
+<div style="clear: both;"></div>
+<div id="footer"></div>
+</body>
+</html>

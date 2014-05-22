@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tk.gbl.mapper.TeacherMapper">
+	<resultMap type="Teacher" id="teacher">
+		<id property="teacher_id" column="teacher_id" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="realname" column="realname" />
+		<result property="status" column="status" />
+		<association property="unit" column="unit_id" javaType="Unit"
+			select="selectUnit" />
+	</resultMap>
+	<resultMap type="Unit" id="unit">
+		<id property="unit_id" column="unit_id" />
+		<result property="name" column="name" />
+	</resultMap>
+	<select id="selectUnit" parameterType="int" resultMap="unit">
+		select *
+		from unit where unit_id = #{id}
+	</select>
+
+	<select id="get" parameterType="int" resultMap="teacher">
+		select * from
+		teacher where teacher_id = #{id}
+	</select>
+    <select id="getAll" parameterType="int" resultMap="teacher">
+        select * from teacher
+    </select>
+	<select id="getByUsername" parameterType="int" resultMap="teacher">
+		select
+		* from teacher where username = #{username}
+	</select>
+
+	<insert id="save" parameterType="Teacher">
+		insert into teacher(username,password,realname,status,unit_id)
+		values( #{username},#{password},#{realname},#{status},
+		#{unit.unit_id})
+	</insert>
+
+	<update id="update" parameterType="Teacher">
+		update teacher set
+		username=#{username} ,password=#{password},
+		realname=#{realname},status=#{status},unit_id=#{unit.unit_id}
+		where teacher_id=#{teacher_id}
+	</update>
+
+	<update id="delete" parameterType="int">
+		delete from teacher where
+		teacher_id=#{id}
+	</update>
+
+
+
+</mapper> 

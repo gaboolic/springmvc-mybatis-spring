@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>SA首页</title>
+
+    <link rel="stylesheet" href="/static/css/base.css" type="text/css"/>
+
+</head>
+
+<body bgcolor="#32435d">
+<div id="content">
+    <#include "/sa/left.html" />
+    <div class="c-c">
+        <form action="addAdmin" method="post">
+            <label>用户名</label><input type="text" name="username"/><br>
+            <label>密码</label><input type="text" name="password"/><br>
+            <label>身份</label>
+            <select name="status">
+                <option value="1">school-admin</option>
+                <option value="2">collage-admin</option>
+            </select><br>
+            <label>真实姓名</label><input type="text" name="realname"/><br>
+            <label>单位</label><br>
+            <select name="unit_id">
+                <#list units as unit>
+                    <option value="${unit.unit_id}">${unit.name}</option>
+                </#list>
+            </select><br>
+            <input type="submit">
+        </form>
+    </div>
+
+    <div class="c-r"></div>
+</div>
+<div style="clear: both;"></div>
+<div id="footer"></div>
+</body>
+</html>
+
+

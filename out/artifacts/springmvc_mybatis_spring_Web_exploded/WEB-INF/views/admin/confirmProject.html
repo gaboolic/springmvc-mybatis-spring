@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>管理员首页</title>
+
+    <link rel="stylesheet" href="/static/css/base.css" type="text/css"/>
+
+</head>
+
+<body bgcolor="#32435d">
+<div id="content">
+
+    <#include "/admin/left.html" />
+
+    <div class="c-c">
+
+
+        <label>项目类型</label>${project.type}<br>
+        <label>项目名称</label>${project.name}<br>
+        <label>单位名称</label>${project.unit.name}<br>
+        <label>教师姓名</label>${project.teacher.realname}<br>
+        <label>申报人电话</label>${project.phone}<br>
+        <label>申请时间</label>${project.apply_date}<br>
+        <label>申请金额</label>${project.apply_money}<br>
+        <label>开始时间</label>${project.start_date}<br>
+        <label>结束时间</label>${project.end_date}<br>
+        <label>项目状态</label>${project.state}<br>
+
+        <form action="confirmProject" method="post">
+
+            <input type="hidden" name="id" value="${project.project_id}"/><br>
+            <#if Session.user.status==1>
+                <lebal>划拨金额</lebal>
+                <input type="text" name="money"/><br>
+            </#if>
+            <input type="submit" value="批准"/>
+        </form>
+
+    </div>
+    <div class="c-r"></div>
+</div>
+<div style="clear: both;"></div>
+<div id="footer"></div>
+</body>
+</html>
+

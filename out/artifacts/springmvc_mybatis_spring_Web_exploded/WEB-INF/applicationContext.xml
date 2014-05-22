@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- 指定Spring配置文件的Schema信息 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+
+    
+  <context:component-scan base-package="tk.gbl" />
+
+	<!-- freemarker -->
+	<bean id="freemarkerConfig"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/WEB-INF/views/" />
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">0</prop>
+				<prop key="default_encoding">UTF-8</prop>
+				<prop key="number_format">0.##########</prop>
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+				<prop key="classic_compatible">true</prop>
+				<prop key="template_exception_handler">ignore</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 定义数据源Bean，使用C3P0数据源实现 -->
+	<!-- 设置连接数据库的驱动、URL、用户名、密码 连接池最大连接数、最小连接数、初始连接数等参数 -->
+	<bean id="dataSource" destroy-method="close"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass">
+			<value>${jdbc.driver}</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>${jdbc.url}</value>
+		</property>
+		<property name="user">
+			<value>${jdbc.username}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc.password}</value>
+		</property>
+		<property name="maxPoolSize">
+			<value>${maxPoolSize}</value>
+		</property>
+		<property name="minPoolSize">
+			<value>${minPoolSize}</value>
+		</property>
+		<property name="initialPoolSize">
+			<value>${initialPoolSize}</value>
+		</property>
+		<property name="maxIdleTime">
+			<value>${maxIdleTime}</value>
+		</property>
+		<property name="idleConnectionTestPeriod">
+			<value>${idleConnectionTestPeriod}</value>
+		</property>
+		<property name="acquireRetryAttempts">
+			<value>${acquireRetryAttempts}</value>
+		</property>
+		<property name="breakAfterAcquireFailure">
+			<value>${breakAfterAcquireFailure}</value>
+		</property>
+		<property name="testConnectionOnCheckout">
+			<value>${testConnectionOnCheckout}</value>
+		</property>
+
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis_config.xml"></property>
+	</bean>
+
+	<bean id="adminMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="tk.gbl.mapper.AdminMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="moneyInfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="tk.gbl.mapper.MoneyInfoMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="projectMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="tk.gbl.mapper.ProjectMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="teacherMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="tk.gbl.mapper.TeacherMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="unitMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="tk.gbl.mapper.UnitMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+
+</beans>
+		

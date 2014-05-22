@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>教师首页</title>
+
+    <link rel="stylesheet" href="/static/css/base.css" type="text/css"/>
+
+</head>
+
+<body bgcolor="#32435d">
+<div id="content">
+
+    <#include "/teacher/left.html" />
+
+    <div class="c-c">
+        <form action="updateProjectState" method="post" >
+            <input type="hidden" name="project_id" value="${project.project_id}"/>
+
+            <label>项目进度状态</label>
+            <select name="state">
+                <option value="1">立项提交</option>
+                <option value="2">立项成功</option>
+                <option value="3">中期检查</option>
+                <option value="4">结题</option>
+                <option value="5">延期</option>
+            </select>
+            <input type="submit"/>
+        </form>
+
+    </div>
+    <div class="c-r"></div>
+</div>
+<div style="clear: both;"></div>
+<div id="footer"></div>
+</body>
+</html>

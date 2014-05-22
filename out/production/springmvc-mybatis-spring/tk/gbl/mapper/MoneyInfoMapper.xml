@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="tk.gbl.mapper.MoneyInfoMapper">  
+ <resultMap type="MoneyInfo" id="moneyInfo">
+		<id property="money_info_id" column="money_info_id"/>
+	    <result property="judge_time" column="judge_time"/>
+	    <result property="end_time" column="end_time"/>
+	    <result property="money_limit" column="money_limit"/>
+	    <result property="give_time" column="give_time"/>
+	    <result property="money_from" column="money_from"/>
+	    <result property="reimburse_time" column="reimburse_time"/>
+	    <result property="reimburse_abstract" column="reimburse_abstract"/>
+	    <result property="remain_money" column="remain_money"/>
+	    <result property="description" column="description"/>
+	    <association property="unit" column="unit_id"  
+            javaType="Unit" select="selectUnit" />
+        <association property="teacher" column="teacher_id"  
+            javaType="Teacher" select="selectTeacher" />
+        <association property="project" column="project_id"  
+            javaType="Project" select="selectProject" />
+	</resultMap>
+	<resultMap type="Teacher" id="teacher">
+		<id property="teacher_id" column="teacher_id" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="realname" column="realname" />
+		<result property="status" column="status" />
+		<association property="unit" column="unit_id" javaType="Unit"
+			select="selectUnit" />
+	</resultMap>
+	<resultMap type="Unit" id="unit">
+		<id property="unit_id" column="unit_id" />
+		<result property="name" column="name" />
+	</resultMap>
+	<resultMap type="Project" id="project">
+		<id property="project_id" column="project_id"/>
+	    <result property="type" column="type"/>
+	    <result property="name" column="name"/>
+	    <result property="phone" column="phone"/>
+	    <result property="apply_date" column="apply_date"/>
+	    <result property="apply_money" column="apply_money"/>
+	    <result property="start_date" column="start_date"/>
+	    <result property="end_date" column="end_date"/>
+	    <result property="college_check_state" column="college_check_state"/>
+	    <result property="school_check_state" column="school_check_state"/>
+	    <result property="state" column="state"/>
+	    <association property="unit" column="unit_id"  
+            javaType="Unit" select="selectUnit" />
+        <association property="teacher" column="teacher_id"  
+            javaType="Teacher" select="selectTeacher" />
+	</resultMap>
+	
+	<select id="selectUnit" parameterType="int" resultType="Unit">
+		select * from unit where unit_id = #{id}
+	</select>
+	<select id="selectTeacher" parameterType="int" resultMap="teacher">
+		select * from unit where teacher_id = #{id}
+	</select>
+	<select id="selectProject" parameterType="int" resultMap="project">
+		select * from unit where project_id = #{id}
+	</select>
+
+    <select id="get" parameterType="int" resultMap="moneyInfo">
+		select * from money_Info where money_info_id = #{id}
+	</select>
+
+    <insert id="save" parameterType="MoneyInfo">  
+        insert into money_Info(judge_time,end_time,money_limit,give_time,money_from,
+         reimburse_time,reimburse_abstract,remain_money,description,unit_id,teacher_id,project_id) 
+         values(#{judge_time},#{end_time},#{money_limit},#{give_time},#{money_from},
+         #{reimburse_time},#{reimburse_abstract},#{remain_money},#{description},  
+         #{unit.unit_id},#{teacher.teacher_id},#{project.project_id})
+	</insert>  
+
+	<update id="update" parameterType="MoneyInfo">
+		update money_Info set judge_time=#{judge_time},end_time=#{end_time},money_limit=#{money_limit},give_time=#{give_time},money_from=#{money_from},
+         reimburse_time=#{reimburse_time},reimburse_abstract=#{reimburse_abstract},remain_money=#{remain_money},description=#{description},
+         unit_id={unit.unit_id},teacher_id=#{teacher.teacher_id},project_id=#{project.project_id}  
+		  where money_info_id=#{money_info_id}
+	</update>
+	
+	<update id="delete" parameterType="int">
+		delete from money_Info where money_info_id=#{id}
+	</update>
+   
+
+</mapper> 

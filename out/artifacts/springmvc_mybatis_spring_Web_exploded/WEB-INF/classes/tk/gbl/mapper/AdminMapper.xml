@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="tk.gbl.mapper.AdminMapper">  
+ <resultMap type="Admin" id="admin">
+		<id property="admin_id" column="admin_id"/>
+	    <result property="username" column="username"/>
+	    <result property="password" column="password"/>
+	    <result property="realname" column="realname"/>
+	    <result property="status" column="status"/>
+	    <association property="unit" column="unit_id"  
+            javaType="Unit" select="selectUnit" />
+ </resultMap>
+ <resultMap type="Unit" id="unit">
+		<id property="unit_id" column="unit_id"/>
+	    <result property="name" column="name"/>
+ </resultMap>
+ 	<select id="selectUnit" parameterType="int" resultMap="unit">
+		select * from unit where unit_id = #{id}
+	</select>
+	<select id="get" parameterType="int" resultMap="admin">
+		select * from admin where admin_id = #{id}
+	</select>
+	   <select id="getAll" parameterType="int" resultMap="admin">
+        select * from admin
+    </select>
+
+    <insert id="save" parameterType="Admin">
+        insert into admin(username,password,realname,status,unit_id) 
+         values( #{username},#{password},#{realname},#{status},  
+                          #{unit.unit_id})
+	</insert>  
+
+	<update id="update" parameterType="Admin">
+		update admin set username=#{username} ,password=#{password},
+		realname=#{realname},status=#{status},unit_id=#{unit.unit_id} 
+		 where admin_id=#{admin_id}
+	</update>
+	
+	<update id="delete" parameterType="int">
+		delete from admin where admin_id=#{id}
+	</update>
+
+
+	<select id="getByUsername" parameterType="int" resultMap="admin">
+		select * from admin where username = #{username}
+
+	</select>
+</mapper> 
