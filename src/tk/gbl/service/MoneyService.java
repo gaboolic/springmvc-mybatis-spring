@@ -3,6 +3,7 @@ package tk.gbl.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tk.gbl.bean.MoneyInfo;
 import tk.gbl.mapper.AdminMapper;
 import tk.gbl.mapper.MoneyInfoMapper;
 import tk.gbl.mapper.ProjectMapper;
@@ -25,4 +26,9 @@ public class MoneyService {
 	
 	@Autowired
 	MoneyInfoMapper moneyInfoMapper;
+
+
+    public void saveMoneyInfo(MoneyInfo moneyInfo) {
+        moneyInfoMapper.save(moneyInfo);
+    }
 }

@@ -107,13 +107,14 @@ public class SuperAdminController {
     public String updateAdmin(int id, Model model) {
         Admin admin = userService.getAdmin(id);
         model.addAttribute("admin", admin);
+        List<Unit> units = unitService.getAllUnit();
+        model.addAttribute("units",units);
         return "/sa/updateAdmin";
     }
 
     //修改院校管理员
     @RequestMapping(value = "/updateAdmin", method = RequestMethod.POST)
     public String updateAdmin(Admin admin) {
-
         userService.updateAdmin(admin);
         return "redirect:/sa/adminManager";
     }
@@ -169,18 +170,21 @@ public class SuperAdminController {
         return "redirect:/sa/teacherManager";
     }
 
-    @RequestMapping("/updateTeacher")
+    @RequestMapping(value = "/updateTeacher",method = RequestMethod.GET)
+    public String updateTeacher(Model model,int id) {
+        Teacher teacher = userService.getTeacher(id);
+        model.addAttribute("teacher",teacher);
+        List<Unit> units = unitService.getAllUnit();
+        model.addAttribute("units",units);
+        return "sa/teacherUpdate";
+    }
+    @RequestMapping(value = "/updateTeacher",method = RequestMethod.POST)
     public String updateTeacher(Teacher teacher) {
         if (teacher.getUsername() == null) {
-            return "/admin/addTeacher_input";
+            return "/sa/teacherUpdate";
         }
-        System.out.println(teacher.getTeacher_id());
-        System.out.println(teacher.getUsername());
-        System.out.println(teacher.getPassword());
         userService.updateTeacher(teacher);
-
         return "redirect:/sa/teacherManager";
-
     }
 
     @RequestMapping("/getTeacher")
@@ -221,12 +225,19 @@ public class SuperAdminController {
     @RequestMapping("/deleteUnit")
     public String deleteUnit(int id) {
         unitService.deleteUnit(id);
-        return "sa/unitManager";
+        return "redirect:/sa/unitManager";
     }
 
-    @RequestMapping("/updateUnit")
+
+    @RequestMapping(value = "/updateUnit",method = RequestMethod.GET)
+    public String updateUnit(Model model,int id) {
+        Unit unit = unitService.getUnit(id);
+        model.addAttribute("unit",unit);
+        return "sa/unitUpdate";
+    }
+    @RequestMapping(value = "/updateUnit",method = RequestMethod.POST)
     public String updateUnit(Unit unit) {
         unitService.updateUnit(unit);
-        return "sa/unitManager";
+        return "redirect:/sa/unitManager";
     }
 }

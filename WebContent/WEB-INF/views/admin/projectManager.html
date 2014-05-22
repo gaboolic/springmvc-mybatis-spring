@@ -35,10 +35,13 @@
                     <td>${project.teacher.realname}</td>
 
 
-                    <th>${project.college_check_state}</th>
-                    <th>${project.school_check_state}</th>
-                    <th>${project.state}</th>
-                    <td><a>批准</a><a>拒绝</a></td>
+                    <td>${project.college_check_state?string('true','false')}</td>
+                    <td>${project.school_check_state?string('true','false')}</td>
+                    <td>${project.state}</td>
+                    <td>
+                        <a href="confirmProject?id=${project.project_id}">批准</a>
+                        <a href="refuseProject?id=${project.project_id}">拒绝</a>
+                    </td>
                 </tr>
             </#list>
         </table>

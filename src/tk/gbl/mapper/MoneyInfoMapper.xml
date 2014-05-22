@@ -64,26 +64,26 @@
 	</select>
 
     <select id="get" parameterType="int" resultMap="moneyInfo">
-		select * from moneyInfo where money_info_id = #{id}
+		select * from money_Info where money_info_id = #{id}
 	</select>
 
     <insert id="save" parameterType="MoneyInfo">  
-        insert into moneyInfo(judge_time,end_time,money_limit,give_time,money_from,
+        insert into money_Info(judge_time,end_time,money_limit,give_time,money_from,
          reimburse_time,reimburse_abstract,remain_money,description,unit_id,teacher_id,project_id) 
-         values( #{judge_time},#{end_time},#{money_limit},#{give_time},#{money_from},
+         values(#{judge_time},#{end_time},#{money_limit},#{give_time},#{money_from},
          #{reimburse_time},#{reimburse_abstract},#{remain_money},#{description},  
          #{unit.unit_id},#{teacher.teacher_id},#{project.project_id})
 	</insert>  
 
 	<update id="update" parameterType="MoneyInfo">
-		update moneyInfo set judge_time=#{judge_time},end_time=#{end_time},money_limit=#{money_limit},give_time=#{give_time},money_from=#{money_from},
+		update money_Info set judge_time=#{judge_time},end_time=#{end_time},money_limit=#{money_limit},give_time=#{give_time},money_from=#{money_from},
          reimburse_time=#{reimburse_time},reimburse_abstract=#{reimburse_abstract},remain_money=#{remain_money},description=#{description},
          unit_id={unit.unit_id},teacher_id=#{teacher.teacher_id},project_id=#{project.project_id}  
 		  where money_info_id=#{money_info_id}
 	</update>
 	
 	<update id="delete" parameterType="int">
-		delete from moneyInfo where money_info_id=#{id}
+		delete from money_Info where money_info_id=#{id}
 	</update>
    
 

@@ -4,12 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import tk.gbl.bean.Admin;
+import tk.gbl.bean.MoneyInfo;
 import tk.gbl.bean.Project;
+import tk.gbl.service.MoneyService;
 import tk.gbl.service.ProjectService;
 import tk.gbl.service.UserService;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,6 +40,8 @@ public class AdminController {
     UserService userService;
     @Autowired
     ProjectService projectService;
+    @Autowired
+    MoneyService moneyService;
 
     @RequestMapping("/")
     public String index() {
@@ -73,10 +79,33 @@ public class AdminController {
         return "admin/moneyManager";
     }
 
-    @RequestMapping("updateProjectCollegeState")
-    public String updateProjectCollegeState(Project project) {
-        projectService.updateProjectCollegeState(project);
-        return null;
+
+    @RequestMapping(value = "collegeConfirmProject" ,method = RequestMethod.GET)
+    public String collegeConfirmProject(Model model,int id){
+        Project project = projectService.getProject(id);
+        model.addAttribute("project",project);
+        return "admin/confirmProject";
+    }
+    @RequestMapping(value = "collegeConfirmProject" ,method = RequestMethod.POST)
+    public String collegeConfirmProject(int id){
+        Project project = projectService.getProject(id);
+        project.setCollege_check_state(true);
+        projectService.updateProject(project);
+        return "redirect:/admin/projectManager";
+    }
+    @RequestMapping(value="collegeRefuseProject",method = RequestMethod.GET)
+    public String collegeRefuseProject(Model model,int id){
+        Project project = projectService.getProject(id);
+        model.addAttribute("project",project);
+        return "admin/refuseProject";
+    }
+    @RequestMapping(value="collegeRefuseProject",method = RequestMethod.POST)
+    public String collegeRefuseProject(int id,String message){
+        Project project = projectService.getProject(id);
+        project.setReason(message);
+        project.setCollege_check_state(false);
+        projectService.updateProject(project);
+        return "admin/refuseProject";
     }
 
     @RequestMapping("updateProjectSchoolState")
@@ -84,6 +113,56 @@ public class AdminController {
         projectService.updateProjectSchoolState(project);
         return null;
     }
+
+
+
+
+
+    @RequestMapping(value = "confirmProject" ,method = RequestMethod.GET)
+    public String schoolConfirmProject(Model model,int id){
+        Project project = projectService.getProject(id);
+        model.addAttribute("project",project);
+        return "admin/confirmProject";
+    }
+    @RequestMapping(value = "confirmProject" ,method = RequestMethod.POST)
+    public String schoolConfirmProject(HttpSession session,int id,Integer money){
+        Admin admin = (Admin) session.getAttribute("user");
+        Project project = projectService.getProject(id);
+        if(admin.getStatus() == 1) {
+            project.setSchool_check_state(true);
+            MoneyInfo moneyInfo = new MoneyInfo();
+            moneyInfo.setProject(project);
+            moneyInfo.setMoney_limit(money);
+            moneyInfo.setGive_time(new Date());
+            moneyInfo.setEnd_time(new Date());
+            moneyInfo.setJudge_time(new Date());
+            moneyService.saveMoneyInfo(moneyInfo);
+        } else {
+            project.setCollege_check_state(true);
+        }
+        projectService.updateProject(project);
+        return "redirect:/admin/projectManager";
+    }
+    @RequestMapping(value="refuseProject",method = RequestMethod.GET)
+    public String schoolRefuseProject(Model model,int id){
+        Project project = projectService.getProject(id);
+        model.addAttribute("project",project);
+        return "admin/refuseProject";
+    }
+    @RequestMapping(value="refuseProject",method = RequestMethod.POST)
+    public String schoolRefuseProject(HttpSession session,int id,String message){
+        Admin admin = (Admin) session.getAttribute("user");
+        Project project = projectService.getProject(id);
+        project.setReason(message);
+        if(admin.getStatus() == 1){
+            project.setSchool_check_state(false);
+        } else {
+            project.setCollege_check_state(false);
+        }
+        projectService.updateProject(project);
+        return "admin/refuseProject";
+    }
+
 
     @RequestMapping(value="/viewProject")
     public String viewProject(Model model,int id){

@@ -56,14 +56,15 @@
     </select>
 
     <insert id="save" parameterType="Project">  
-        insert into project(type,name,phone,apply_date,apply_money,start_date,end_date,college_check_state,school_check_state,state,unit_id,teacher_id) 
-         values( #{type},#{name},#{phone},#{apply_date},#{apply_money},
-         #{start_date},#{end_date},#{college_check_state},#{school_check_state},#{state},  
+        insert into project(type,name,phone,join_people,apply_date,apply_money,used_money,start_date,end_date,college_check_state,school_check_state,state,unit_id,teacher_id)
+         values(#{type},#{name},#{phone},#{join_people},#{apply_date},#{apply_money},#{used_money},
+         #{start_date},#{end_date},#{college_check_state},#{school_check_state},#{state},
          #{unit.unit_id},#{teacher.teacher_id})
 	</insert>  
 
 	<update id="update" parameterType="Project">
-		update project set type=#{type},name=#{name},phone=#{phone},apply_date=#{apply_date},apply_money=#{apply_money},
+		update project set type=#{type},name=#{name},phone=#{phone},join_people=#{join_people},
+		apply_date=#{apply_date},apply_money=#{apply_money},used_money=#{used_money},
          start_date=#{start_date},end_date=#{end_date},college_check_state=#{college_check_state},school_check_state=#{school_check_state},state=#{state},  
          unit_id=#{unit.unit_id},teacher_id=#{teacher.teacher_id}  
 		  where project_id=#{project_id}

@@ -27,7 +27,8 @@
                     <td>${admin.username}</td>
                     <td>${admin.password}</td>
                     <td>${admin.status}</td>
-                    <td><a href="updateAdmin?id=${admin.admin_id}">修改</a><a href="">删除</a></td>
+                    <td><a href="updateAdmin?id=${admin.admin_id}">修改</a>
+                        <a href="deleteAdmin?id=${admin.admin_id}">删除</a></td>
                 </tr>
             </#list>
         </table>

@@ -38,10 +38,8 @@ public class MoneyInfo {
 
     private Project project;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date judge_time;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date end_time;
 
     private int money_limit;

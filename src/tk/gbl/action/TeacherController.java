@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import tk.gbl.bean.Project;
 import tk.gbl.bean.Teacher;
+import tk.gbl.bean.Unit;
 import tk.gbl.service.ProjectService;
+import tk.gbl.service.UnitService;
 import tk.gbl.service.UserService;
 
 import java.util.Date;
@@ -45,6 +47,8 @@ public class TeacherController {
     UserService userService;
     @Autowired
     ProjectService projectService;
+    @Autowired
+    UnitService unitService;
 
     @RequestMapping("/")
     public String index() {
@@ -61,7 +65,9 @@ public class TeacherController {
 
     //立项提交
     @RequestMapping(value = "/addProject", method = RequestMethod.GET)
-    public String addProject() {
+    public String addProject(Model model) {
+        List<Unit> units = unitService.getAllUnit();
+        model.addAttribute("units",units);
         return "teacher/projectAdd";
     }
 
@@ -69,6 +75,8 @@ public class TeacherController {
     public String addProject(Project project, HttpSession session) {
         Teacher teacher = (Teacher) session.getAttribute("user");
         project.setTeacher(teacher);
+        Unit unit = teacher.getUnit();
+        project.setUnit(unit);
         project.setApply_date(new Date());
         System.out.println(project.getStart_date());
         projectService.addProject(project);
@@ -80,32 +88,36 @@ public class TeacherController {
     public String updateProject(int id, Model model) {
         Project project = projectService.getProject(id);
         model.addAttribute("project", project);
+        List<Unit> units = unitService.getAllUnit();
+        model.addAttribute("units",units);
         return "teacher/projectUpdate";
     }
 
     @RequestMapping(value = "/updateProject", method = RequestMethod.POST)
-    public String updateProject(HttpSession session,Project project) {
+    public String updateProject(HttpSession session, Project project) {
         Teacher teacher = (Teacher) session.getAttribute("user");
         project.setTeacher(teacher);
+        projectService.updateProject(project);
         return "redirect:/teacher/projectManager";
     }
 
-    @RequestMapping(value="/viewProject")
-    public String viewProject(Model model,int id){
+    @RequestMapping(value = "/viewProject")
+    public String viewProject(Model model, int id) {
         Project project = projectService.getProject(id);
-        model.addAttribute("project",project);
-        System.out.println("***project");
-        System.out.println(project.getApply_date());
-        System.out.println(project.getStart_date());
-        System.out.println(project.getEnd_date());
-        System.out.println(project.isCollege_check_state());
-        System.out.println(project.isSchool_check_state());
+        model.addAttribute("project", project);
         return "teacher/projectDetail";
     }
 
 
     //项目状态更新
-    @RequestMapping("/updateProjectState")
+    @RequestMapping(value = "/updateProjectState", method = RequestMethod.GET)
+    public String updateProjectState(Model model, int id) {
+        Project project = projectService.getProject(id);
+        model.addAttribute("project", project);
+        return "teacher/projectUpdateState";
+    }
+
+    @RequestMapping(value = "/updateProjectState", method = RequestMethod.POST)
     public String updateProjectState(Project project) {
         projectService.updateProjectState(project);
         return "redirect:/teacher/projectManager";
