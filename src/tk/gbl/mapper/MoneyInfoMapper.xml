@@ -57,15 +57,18 @@
 		select * from unit where unit_id = #{id}
 	</select>
 	<select id="selectTeacher" parameterType="int" resultMap="teacher">
-		select * from unit where teacher_id = #{id}
+		select * from teacher where teacher_id = #{id}
 	</select>
 	<select id="selectProject" parameterType="int" resultMap="project">
-		select * from unit where project_id = #{id}
+		select * from project where project_id = #{id}
 	</select>
 
     <select id="get" parameterType="int" resultMap="moneyInfo">
 		select * from money_Info where money_info_id = #{id}
 	</select>
+    <select id="getAll" parameterType="int" resultMap="moneyInfo">
+        select * from money_Info
+    </select>
 
     <insert id="save" parameterType="MoneyInfo">  
         insert into money_Info(judge_time,end_time,money_limit,give_time,money_from,

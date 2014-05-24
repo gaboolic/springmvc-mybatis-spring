@@ -57,25 +57,30 @@ public class AdminController {
             projects = projectService.getAllProject();
         } else {
             projects = projectService.getAllProjectOfUnit(admin.getUnit());
-            System.out.println("****");
-            System.out.println(admin.getUnit());
         }
         model.addAttribute("projects",projects);
-        System.out.println("project"+projects.size());
         return "admin/projectManager";
     }
 
     //项目管理 统计
-    @RequestMapping("/moneyManager")
+    @RequestMapping("/projectCount")
     public String projectManagerReduce(HttpSession session, Model model) {
         Admin admin = (Admin) session.getAttribute("user");
         List<Project> projects = null;
-        if (admin.getStatus() == 0) {
+        if (admin.getStatus() == 0 || admin.getStatus() == 1) {
             projects = projectService.getAllProject();
         } else {
             projects = projectService.getAllProjectOfUnit(admin.getUnit());
         }
         model.addAttribute("projects",projects);
+        return "admin/projectCount";
+    }
+
+    //经费管理
+    @RequestMapping("/moneyManager")
+    public String projectMoneyManager(HttpSession session, Model model) {
+        List<MoneyInfo> moneyInfos = moneyService.getAllMoneyInfo();
+        model.addAttribute("moneyInfos",moneyInfos);
         return "admin/moneyManager";
     }
 
@@ -136,6 +141,8 @@ public class AdminController {
             moneyInfo.setGive_time(new Date());
             moneyInfo.setEnd_time(new Date());
             moneyInfo.setJudge_time(new Date());
+            moneyInfo.setTeacher(project.getTeacher());
+            moneyInfo.setUnit(project.getUnit());
             moneyService.saveMoneyInfo(moneyInfo);
         } else {
             project.setCollege_check_state(true);
@@ -160,7 +167,7 @@ public class AdminController {
             project.setCollege_check_state(false);
         }
         projectService.updateProject(project);
-        return "admin/refuseProject";
+        return "redirect:/admin/projectManager";
     }
 
 

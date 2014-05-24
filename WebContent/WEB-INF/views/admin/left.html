@@ -16,9 +16,15 @@
     </div>
     <div class="c-l-b2" style="margin-top: 13px;">
         <ul>
-            <li><a href="adminManager">项目统计</a></li>
+            <li><a href="projectCount">项目统计</a></li>
         </ul>
     </div>
 
-
+    <#if Session.user.status==1>
+    <div class="c-l-b2" style="margin-top: 13px;">
+        <ul>
+            <li><a href="moneyManager">经费统计</a></li>
+        </ul>
+    </div>
+    </#if>
 </div>

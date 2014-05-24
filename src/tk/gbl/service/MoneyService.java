@@ -10,6 +10,8 @@ import tk.gbl.mapper.ProjectMapper;
 import tk.gbl.mapper.TeacherMapper;
 import tk.gbl.mapper.UnitMapper;
 
+import java.util.List;
+
 @Service("moneyService")
 public class MoneyService {
 	@Autowired
@@ -30,5 +32,9 @@ public class MoneyService {
 
     public void saveMoneyInfo(MoneyInfo moneyInfo) {
         moneyInfoMapper.save(moneyInfo);
+    }
+
+    public List<MoneyInfo> getAllMoneyInfo() {
+        return moneyInfoMapper.getAll();
     }
 }

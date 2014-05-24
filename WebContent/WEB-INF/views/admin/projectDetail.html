@@ -24,12 +24,12 @@
         <label>单位名称</label>${project.unit.name}<br>
         <label>教师姓名</label>${project.teacher.realname}<br>
         <label>申报人电话</label>${project.phone}<br>
-        <label>申请时间</label>${project.apply_date}<br>
+        <label>申请时间</label>${project.apply_date?string("yyyy-MM-dd HH:mm:ss")}<br>
         <label>申请金额</label>${project.apply_money}<br>
-        <label>开始时间</label>${project.start_date}<br>
-        <label>结束时间</label>${project.end_date}<br>
-        <label>院审核状态</label>${project.college_check_state}<br>
-        <label>校审核状态</label>${project.school_check_state}<br>
+        <label>开始时间</label>${project.start_date?string("yyyy-MM-dd HH:mm:ss")}<br>
+        <label>结束时间</label>${project.end_date?string("yyyy-MM-dd HH:mm:ss")}<br>
+        <label>院审核状态</label>${project.college_check_state?string('true','false')}<br>
+        <label>校审核状态</label>${project.school_check_state?string('true','false')}<br>
         <label>项目状态</label>${project.state}<br>
 
 

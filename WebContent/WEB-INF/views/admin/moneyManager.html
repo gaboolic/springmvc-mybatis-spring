@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>管理员首页</title>
+
+    <link rel="stylesheet" href="/static/css/base.css" type="text/css"/>
+
+</head>
+
+<body bgcolor="#32435d">
+<div id="content">
+
+    <#include "/admin/left.html" />
+
+    <div class="c-c">
+        <table cellpadding="1px" cellspacing="CD">
+            <tr>
+
+                <th>id</th>
+                <th>项目名称</th>
+                <th>审核时间</th>
+                <th>结束时间</th>
+                <th>划拨时间</th>
+                <th>经费限额</th>
+
+            </tr>
+            <#list moneyInfos as money>
+                <tr>
+                    <td>${money.money_info_id}</td>
+                    <td>${money.project.name}</td>
+                    <td>${money.judge_time?string("yyyy-MM-dd HH:mm:ss")}</td>
+                    <td>${money.end_time?string("yyyy-MM-dd HH:mm:ss")}</td>
+                    <td>${money.give_time?string("yyyy-MM-dd HH:mm:ss")}</td>
+                    <td>${money.money_limit}</td>
+
+                </tr>
+            </#list>
+        </table>
+    </div>
+    <div class="c-r"></div>
+</div>
+<div style="clear: both;"></div>
+<div id="footer"></div>
+</body>
+</html>
+
